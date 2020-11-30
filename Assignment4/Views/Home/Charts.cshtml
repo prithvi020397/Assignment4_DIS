@@ -1,0 +1,260 @@
+﻿@{ ViewData["Title"] = "Charts"; }
+
+@model Assignment4.Models.EF_Models.Results[]
+
+
+<head>
+    <style>
+
+
+        .Home {
+            text-decoration: none;
+            display: initial;
+            padding: 10px 20px;
+            color: black;
+            text-align: center;
+            font-size: 20px;
+            font-family: calibri;
+            background-color: orangered;
+            color: seashell;
+            <button type="button" class="btn btn-primary">Default</button>
+        }
+
+        h1 {
+            color: white;
+        }
+    </style>
+</head>
+
+
+@{ Dictionary<string, string> states = new Dictionary<string, string>();
+
+                states.Add("AL", "Alabama");
+                states.Add("AK", "Alaska");
+                states.Add("AZ", "Arizona");
+                states.Add("AR", "Arkansas");
+                states.Add("CA", "California");
+                states.Add("CO", "Colorado");
+                states.Add("CT", "Connecticut");
+                states.Add("DE", "Delaware");
+                states.Add("DC", "District of Columbia");
+                states.Add("FL", "Florida");
+                states.Add("GA", "Georgia");
+                states.Add("HI", "Hawaii");
+                states.Add("ID", "Idaho");
+                states.Add("IL", "Illinois");
+                states.Add("IN", "Indiana");
+                states.Add("IA", "Iowa");
+                states.Add("KS", "Kansas");
+                states.Add("KY", "Kentucky");
+                states.Add("LA", "Louisiana");
+                states.Add("ME", "Maine");
+                states.Add("MD", "Maryland");
+                states.Add("MA", "Massachusetts");
+                states.Add("MI", "Michigan");
+                states.Add("MN", "Minnesota");
+                states.Add("MS", "Mississippi");
+                states.Add("MO", "Missouri");
+                states.Add("MT", "Montana");
+                states.Add("NE", "Nebraska");
+                states.Add("NV", "Nevada");
+                states.Add("NH", "New Hampshire");
+                states.Add("NJ", "New Jersey");
+                states.Add("NM", "New Mexico");
+                states.Add("NY", "New York");
+                states.Add("NC", "North Carolina");
+                states.Add("ND", "North Dakota");
+                states.Add("OH", "Ohio");
+                states.Add("OK", "Oklahoma");
+                states.Add("OR", "Oregon");
+                states.Add("PA", "Pennsylvania");
+                states.Add("RI", "Rhode Island");
+                states.Add("SC", "South Carolina");
+                states.Add("SD", "South Dakota");
+                states.Add("TN", "Tennessee");
+                states.Add("TX", "Texas");
+                states.Add("UT", "Utah");
+                states.Add("VT", "Vermont");
+                states.Add("VA", "Virginia");
+                states.Add("WA", "Washington");
+                states.Add("WV", "West Virginia");
+                states.Add("WI", "Wisconsin");
+                states.Add("WY", "Wyoming"); }
+@{ string state = states[ViewBag.State]; }
+
+
+<div class="col-sm-6 container">
+    <form asp-controller="Home" asp-action="GetUniversitiesByStateChart" method="post">
+        <select name="state">
+            <option value="AL">Alabama</option>
+            <option value="AK">Alaska</option>
+            <option value="AZ">Arizona</option>
+            <option value="AR">Arkansas</option>
+            <option value="CA">California</option>
+            <option value="CO">Colorado</option>
+            <option value="CT">Connecticut</option>
+            <option value="DE">Delaware</option>
+            <option value="DC">District Of Columbia</option>
+            <option value="FL">Florida</option>
+            <option value="GA">Georgia</option>
+            <option value="HI">Hawaii</option>
+            <option value="ID">Idaho</option>
+            <option value="IL">Illinois</option>
+            <option value="IN">Indiana</option>
+            <option value="IA">Iowa</option>
+            <option value="KS">Kansas</option>
+            <option value="KY">Kentucky</option>
+            <option value="LA">Louisiana</option>
+            <option value="ME">Maine</option>
+            <option value="MD">Maryland</option>
+            <option value="MA">Massachusetts</option>
+            <option value="MI">Michigan</option>
+            <option value="MN">Minnesota</option>
+            <option value="MS">Mississippi</option>
+            <option value="MO">Missouri</option>
+            <option value="MT">Montana</option>
+            <option value="NE">Nebraska</option>
+            <option value="NV">Nevada</option>
+            <option value="NH">New Hampshire</option>
+            <option value="NJ">New Jersey</option>
+            <option value="NM">New Mexico</option>
+            <option value="NY">New York</option>
+            <option value="NC">North Carolina</option>
+            <option value="ND">North Dakota</option>
+            <option value="OH">Ohio</option>
+            <option value="OK">Oklahoma</option>
+            <option value="OR">Oregon</option>
+            <option value="PA">Pennsylvania</option>
+            <option value="RI">Rhode Island</option>
+            <option value="SC">South Carolina</option>
+            <option value="SD">South Dakota</option>
+            <option value="TN">Tennessee</option>
+            <option value="TX">Texas</option>
+            <option value="UT">Utah</option>
+            <option value="VT">Vermont</option>
+            <option value="VA">Virginia</option>
+            <option value="WA">Washington</option>
+            <option value="WV">West Virginia</option>
+            <option value="WI">Wisconsin</option>
+            <option value="WY">Wyoming</option>
+
+        </select>
+        <button type="submit">Search</button>
+    </form>
+</div>
+
+@*<div class="container">
+
+        @if (Model != null)
+        {
+            <div>
+                <table style="width:1000px" class="table-bordered table-dark table-striped table-hover .table-responsive{-sm|-md|-lg|-xl}">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>School Name </th>
+                            <th>School URL </th>
+                            <th> Tution Fee</th>
+                            <th>School City</th>
+                            <th> Student Strength </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.results)
+                        {
+
+                            <tr>
+
+                                <td>
+                                    @item.schoolName
+                                </td>
+
+                                <td>
+                                    @{
+                                        string url = "https://" + item.schoolUrl;
+                                        <a href=@url>@item.schoolUrl</a>
+                                    }
+
+                                </td>
+                                <td>
+                                    @if (item.tuitionOutState != null)
+                                        @item.tuitionOutState
+
+                                    @if (item.tuitionOutState == null)
+                                    {
+                                        item.tuitionOutState = 0;
+                                        <span>No Data</span>
+                                    }
+                                </td>
+                                <td>
+                                    @item.schoolCity
+                                </td>
+                                <td>
+                                    @if (item.studentSize != null)
+                                        @item.studentSize
+
+                                    @if (item.studentSize == null)
+                                    {
+                                        <span>No Data</span>
+                                    }
+                                </td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        }
+
+
+    </div>*@
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+<div id="chartContainer" class="jumbotron-fluid">
+    <script type="text/javascript">
+
+        window.onload = function () {
+           
+
+                    var chart = new CanvasJS.Chart("chartContainer", {
+            theme: "light2",
+            animationEnabled: true,
+            title: {
+                    text: "Visualization of food topics and their obesity values",
+                padding: 10
+            },
+            subtitles: [
+                { text: "Displaying 5 topics from" + " @state" }
+            ],
+            axisX: {
+                    title: "topic Name",
+                padding: 10
+            },
+            axisY: {
+                    title: "Obesity Index",
+                padding: 10
+            },
+            padding: {
+                    left: 0,
+                right: 0,
+                top: 100,
+                bottom: 0
+            },
+            data: [
+                {
+                    type: "bar", //change type to bar, line, area, pie, etc
+                    dataPoints: [
+                        { label: "@Model[0].topic", y: @Model[0].data_value },
+                        { label: "@Model[1].topic", y:  @Model[1].data_value},
+                        {  label: "@Model[2].topic", y:  @Model[2].data_value },
+                        {  label: "@Model[3].topic", y:  @Model[3].data_value },
+                        { label: "@Model[4].topic", y:  @Model[4].data_value }
+                    ]
+                }
+            ]
+        });
+        chart.render();
+    };
+    </script>
+</div>
